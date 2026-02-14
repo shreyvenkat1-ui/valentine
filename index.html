@@ -1,0 +1,347 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Will you be my Valentine?</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg1:#ffd6e7; --bg2:#ffeef6; --card:#ffffffcc; --text:#2b1b1f;
+      --yes:#ff4d6d; --yes2:#ff8fab; --shadow: 0 20px 60px rgba(0,0,0,.12);
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0; min-height:100vh;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+      color:var(--text);
+      display:grid; place-items:center;
+      background: radial-gradient(circle at 30% 20%, var(--bg2), transparent 55%),
+                  radial-gradient(circle at 70% 30%, #fff0f6, transparent 60%),
+                  linear-gradient(135deg, var(--bg1), #fff);
+      overflow:hidden;
+    }
+    .hearts{
+      position:fixed; inset:0; pointer-events:none; overflow:hidden;
+      filter: drop-shadow(0 8px 18px rgba(255,77,109,.25));
+    }
+    .heart{
+      position:absolute; width:18px; height:18px;
+      background: linear-gradient(135deg, #ff4d6d, #ffb3c1);
+      transform: rotate(45deg);
+      opacity:.75;
+      border-radius:4px;
+      animation: floatUp linear forwards;
+    }
+    .heart:before,.heart:after{
+      content:""; position:absolute; width:18px; height:18px; border-radius:50%;
+      background: inherit;
+    }
+    .heart:before{left:-9px; top:0}
+    .heart:after{top:-9px; left:0}
+    @keyframes floatUp{
+      from{transform:translateY(40px) rotate(45deg); opacity:0}
+      10%{opacity:.8}
+      to{transform:translateY(-110vh) rotate(45deg); opacity:0}
+    }
+
+    .card{
+      width:min(540px, 92vw);
+      background:var(--card);
+      border:1px solid rgba(255,255,255,.6);
+      backdrop-filter: blur(10px);
+      box-shadow: var(--shadow);
+      border-radius:28px;
+      padding:28px 22px;
+      text-align:center;
+      position:relative;
+    }
+    .badge{
+      display:inline-flex; gap:8px; align-items:center;
+      padding:8px 12px;
+      border-radius:999px;
+      background:#fff;
+      box-shadow: 0 10px 30px rgba(0,0,0,.08);
+      font-weight:600;
+      margin-bottom:12px;
+    }
+    h1{
+      font-family: Pacifico, cursive;
+      font-size: clamp(34px, 5vw, 52px);
+      line-height:1.05;
+      margin:10px 0 8px;
+    }
+    p{margin:0 0 18px; opacity:.85}
+    .art{
+      width:180px; height:180px; margin: 8px auto 16px;
+      border-radius:30px;
+      background: radial-gradient(circle at 30% 30%, #fff, #ffe1ec 60%, #ffd1e3);
+      display:grid; place-items:center;
+      box-shadow: 0 18px 50px rgba(255,77,109,.18);
+      position:relative;
+      overflow:hidden;
+    }
+    .cat{
+      width:120px; height:120px; position:relative;
+      transform: translateY(8px);
+    }
+    .cat .head{
+      width:120px; height:98px; background:#fff;
+      border-radius: 60px 60px 52px 52px;
+      position:absolute; left:0; top:12px;
+      box-shadow: 0 12px 30px rgba(0,0,0,.08);
+    }
+    .cat .ear{
+      width:34px; height:34px; background:#fff;
+      position:absolute; top:0;
+      transform: rotate(45deg);
+      border-radius:10px;
+      box-shadow: 0 10px 22px rgba(0,0,0,.06);
+    }
+    .cat .ear.left{left:14px}
+    .cat .ear.right{right:14px}
+    .cat .face{
+      position:absolute; left:0; right:0; top:44px; height:60px;
+      display:flex; align-items:center; justify-content:center; gap:18px;
+    }
+    .eye{
+      width:10px; height:14px; background:#2b1b1f; border-radius:999px;
+      position:relative;
+      animation: blink 4.5s infinite;
+    }
+    @keyframes blink{
+      0%, 45%, 47%, 100%{transform: scaleY(1)}
+      46%{transform: scaleY(.15)}
+    }
+    .cheek{
+      width:14px; height:10px; border-radius:999px;
+      background: #ffb3c1;
+      opacity:.75;
+      position:absolute; bottom:8px;
+    }
+    .cheek.l{left:24px}
+    .cheek.r{right:24px}
+    .mouth{
+      width:18px; height:10px;
+      border:2px solid #2b1b1f;
+      border-top:0; border-left:0; border-right:0;
+      border-radius:0 0 20px 20px;
+      position:absolute; bottom:16px;
+    }
+    .tiny-heart{
+      position:absolute; width:18px; height:18px;
+      left:50%; top:20px; transform:translateX(-50%) rotate(45deg);
+      background: linear-gradient(135deg, #ff4d6d, #ff8fab);
+      border-radius:4px;
+      animation: pulse 1.4s ease-in-out infinite;
+    }
+    .tiny-heart:before,.tiny-heart:after{
+      content:""; position:absolute; width:18px; height:18px; border-radius:50%;
+      background: inherit;
+    }
+    .tiny-heart:before{left:-9px; top:0}
+    .tiny-heart:after{top:-9px; left:0}
+    @keyframes pulse{
+      0%,100%{transform:translateX(-50%) rotate(45deg) scale(1)}
+      50%{transform:translateX(-50%) rotate(45deg) scale(1.14)}
+    }
+
+    .buttons{
+      display:flex; gap:12px; justify-content:center; flex-wrap:wrap;
+      margin-top:10px;
+    }
+    button{
+      border:0; cursor:pointer;
+      padding:14px 18px;
+      border-radius:16px;
+      font-weight:800;
+      font-size:16px;
+      transition: transform .08s ease, box-shadow .2s ease;
+      box-shadow: 0 14px 35px rgba(0,0,0,.12);
+      user-select:none;
+    }
+    button:active{transform: translateY(2px) scale(.99)}
+    .yes{
+      background: linear-gradient(135deg, var(--yes), var(--yes2));
+      color:white;
+      min-width:160px;
+    }
+    .yes:hover{box-shadow: 0 18px 45px rgba(255,77,109,.28)}
+    .yes2{
+      background: #fff;
+      color:#ff4d6d;
+      border:2px dashed rgba(255,77,109,.45);
+      min-width:160px;
+    }
+    .yes2:hover{box-shadow: 0 18px 45px rgba(255,77,109,.18)}
+    .note{
+      margin-top:14px;
+      font-size:12px;
+      opacity:.65;
+    }
+
+    .modal{
+      position:fixed; inset:0;
+      background: rgba(0,0,0,.18);
+      display:none;
+      place-items:center;
+      padding:18px;
+    }
+    .modal.show{display:grid}
+    .modal .inner{
+      width:min(520px, 92vw);
+      background:white;
+      border-radius:26px;
+      padding:22px;
+      box-shadow: 0 24px 80px rgba(0,0,0,.25);
+      text-align:center;
+      position:relative;
+      overflow:hidden;
+    }
+    .confetti{
+      position:absolute; inset:0; pointer-events:none;
+    }
+    .inner h2{
+      font-family: Pacifico, cursive;
+      font-size: clamp(30px, 4.8vw, 44px);
+      margin:6px 0 4px;
+    }
+    .inner p{margin:0 0 12px}
+    .close{
+      margin-top:10px;
+      background:#111;
+      color:white;
+      border-radius:14px;
+      padding:12px 16px;
+      font-weight:800;
+      box-shadow:none;
+    }
+  </style>
+</head>
+<body>
+  <div class="hearts" id="hearts"></div>
+
+  <main class="card" role="main">
+    <div class="badge">💌 <span>Valentine request</span></div>
+    <h1>Will you be my Valentine?</h1>
+    <p>Choose wisely 😇</p>
+
+    <div class="art" aria-hidden="true">
+      <div class="tiny-heart"></div>
+      <div class="cat">
+        <div class="ear left"></div>
+        <div class="ear right"></div>
+        <div class="head"></div>
+        <div class="face">
+          <div class="eye"></div>
+          <div class="eye"></div>
+        </div>
+        <div class="cheek l"></div>
+        <div class="cheek r"></div>
+        <div class="mouth"></div>
+      </div>
+    </div>
+
+    <div class="buttons">
+      <button class="yes" id="yesBtn">Yes 💖</button>
+      <button class="yes2" id="yes2Btn">Yes (obviously) 💘</button>
+    </div>
+
+    <div class="note">Tip: send the link + a 😏 emoji.</div>
+  </main>
+
+  <div class="modal" id="modal" aria-hidden="true">
+    <div class="inner">
+      <canvas class="confetti" id="confetti"></canvas>
+      <h2>YAY!!! 💞</h2>
+      <p>Best decision ever. See you on Valentine’s 🥰</p>
+      <button class="close" id="closeBtn">Close</button>
+    </div>
+  </div>
+
+  <script>
+    // floating hearts in background
+    const hearts = document.getElementById('hearts');
+    function spawnHeart(){
+      const h = document.createElement('div');
+      h.className = 'heart';
+      const size = 10 + Math.random()*18;
+      h.style.width = h.style.height = size + 'px';
+      h.style.left = (Math.random()*100) + 'vw';
+      h.style.animationDuration = (6 + Math.random()*6) + 's';
+      h.style.animationDelay = (Math.random()*1.2) + 's';
+      hearts.appendChild(h);
+      setTimeout(()=>h.remove(), 13000);
+    }
+    for(let i=0;i<22;i++) spawnHeart();
+    setInterval(spawnHeart, 420);
+
+    // modal + confetti
+    const modal = document.getElementById('modal');
+    const yes = document.getElementById('yesBtn');
+    const yes2 = document.getElementById('yes2Btn');
+    const closeBtn = document.getElementById('closeBtn');
+
+    function openModal(){
+      modal.classList.add('show');
+      modal.setAttribute('aria-hidden', 'false');
+      blastConfetti();
+    }
+    function closeModal(){
+      modal.classList.remove('show');
+      modal.setAttribute('aria-hidden', 'true');
+    }
+
+    yes.addEventListener('click', openModal);
+    yes2.addEventListener('click', openModal);
+    closeBtn.addEventListener('click', closeModal);
+    modal.addEventListener('click', (e)=>{ if(e.target===modal) closeModal(); });
+
+    // tiny confetti (canvas)
+    const canvas = document.getElementById('confetti');
+    const ctx = canvas.getContext('2d');
+
+    function resize(){
+      const rect = canvas.parentElement.getBoundingClientRect();
+      canvas.width = Math.floor(rect.width * devicePixelRatio);
+      canvas.height = Math.floor(rect.height * devicePixelRatio);
+      canvas.style.width = rect.width + 'px';
+      canvas.style.height = rect.height + 'px';
+      ctx.setTransform(devicePixelRatio,0,0,devicePixelRatio,0,0);
+    }
+    window.addEventListener('resize', resize);
+
+    function blastConfetti(){
+      resize();
+      const pieces = Array.from({length: 120}, () => ({
+        x: canvas.clientWidth/2,
+        y: canvas.clientHeight/2 - 40,
+        vx: (Math.random()*8 - 4),
+        vy: (Math.random()*-9 - 3),
+        r: 2 + Math.random()*3,
+        a: 1,
+        g: 0.18 + Math.random()*0.08,
+      }));
+      let t = 0;
+      (function anim(){
+        t++;
+        ctx.clearRect(0,0,canvas.clientWidth, canvas.clientHeight);
+        pieces.forEach(p=>{
+          p.vy += p.g;
+          p.x += p.vx;
+          p.y += p.vy;
+          p.a *= 0.992;
+          ctx.globalAlpha = p.a;
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
+          ctx.fill();
+        });
+        ctx.globalAlpha = 1;
+        if(t < 220) requestAnimationFrame(anim);
+      })();
+    }
+  </script>
+</body>
+</html>
